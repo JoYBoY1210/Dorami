@@ -1,0 +1,83 @@
+.calendar-container {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #d1d5db; /* Light gray background for the entire calendar */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #7f56da; /* Purple color */
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+.header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.header span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+.calendar-body {
+    background-color: rgb(156 163 175); 
+    border-radius: 0 0 8px 8px; 
+}
+
+.daynames, .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding: 10px;
+}
+
+.daynames div {
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+}
+
+.day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    padding: 0;
+    font-size: 1rem;
+    
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.today {
+    background-color: #f0c420;
+}
+
+.selected {
+    background-color: #7f56da;
+    color: white;
+}
+
+.day:hover {
+    background-color: gray;
+}
+
+.emptyday {
+    visibility: hidden;
+}
