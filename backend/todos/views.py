@@ -7,11 +7,20 @@ from rest_framework import status
 
 
 class TodoListView(APIView):
-    permission_classes=[IsAuthenticated]
-    def get(self,request):
-        todos=Todo.objects.filter(user=request.user).order_by('due_date')
-        serializer=Todoserializer(todos,many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        date = request.query_params.get('date')
+
+       
+        if date:
+            todos = Todo.objects.filter(user=request.user, due_date=date).order_by('due_date')
+        else:
+            todos = Todo.objects.filter(user=request.user).order_by('due_date')
+
+        serializer = Todoserializer(todos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     
     
 class TodoCreateView(APIView):

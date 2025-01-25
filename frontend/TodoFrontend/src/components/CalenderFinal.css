@@ -67,15 +67,22 @@
 
 .today {
     background-color: #f0c420;
+    border-radius: 50%;  
+    padding: 10px;  
+    font-size: 1.2rem; 
 }
 
 .selected {
     background-color: #7f56da;
+    border-radius: 50%;  
+    padding: 10px; 
+
     color: white;
 }
 
 .day:hover {
     background-color: gray;
+    
 }
 
 .emptyday {

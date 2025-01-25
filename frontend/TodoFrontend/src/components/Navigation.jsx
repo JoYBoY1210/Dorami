@@ -3,32 +3,48 @@ import { IoToday } from "react-icons/io5";
 import Calender from "./Calender";
 
 const Navigation = () => {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-
   return (
-    <div className="text-gray-700 w-64 h-screen border-black border-l-2 bg-white">
-      <ul className="text-lg font-semibold pl-4 pt-5">
-        <li className="p-2 hover:text-black flex items-center">
-          <p className="border-2 text-gray-800 border-black rounded-full w-7 h-7 flex justify-center items-center">
-            {today.getDate()}
-          </p>
-          <p className="pl-2 text-xl">Today</p>
-        </li>
-        <li className="p-2 hover:text-black flex items-center">
-          <p className="border-2 text-gray-800 border-black rounded-full w-7 h-7 flex justify-center items-center">
-            {tomorrow.getDate()}
-          </p>
-          <p className="pl-2 text-xl">Tomorrow</p>
-        </li>
-        <li className="p-2 hover:text-black flex items-center">
-          <IoToday size={28} />
-          <p className="pl-2 text-xl whitespace-nowrap">Next 7 Days</p>
-        </li>
-      </ul>
-      <div className="pt-16 px-4">
+    <div className="navigation w-64 h-screen border-black border-l-2 bg-white">
+      
+      <div className="OopsLater">
+        <p className="text-3xl font-semibold pl-9 pt-6 font-mono">OopsLater</p>
+      </div>
+
+      
+      <div className="links">
+        <ul className="pt-9 pl-5">
+          <li className="text-2xl font-medium pb-4">
+            <a
+              href="#"
+              className="block py-2 px-5 rounded-lg hover:bg-gray-100 hover:shadow-md"
+            >
+              Dashboard
+            </a>
+          </li>
+          <li className="text-2xl font-medium pb-4">
+            <a
+              href="#"
+              className="block py-2 px-5 rounded-lg hover:bg-gray-100 hover:shadow-md"
+            >
+              Tasks
+            </a>
+          </li>
+        </ul>
+      </div>
+
+     
+      <div className="pt-8 px-4">
         <Calender />
+      </div>
+
+      
+      <div className="profile flex pt-6 px-6 items-center space-x-3 cursor-pointer hover:bg-gray-100 rounded-xl shadow-md py-2">
+        <img
+          src="https://www.w3schools.com/w3images/avatar2.png" 
+          className="w-12 h-12 rounded-full border-2 border-gray-300"
+          alt="Profile"
+        />
+        <p className="text-lg font-medium text-gray-700">John Doe</p>
       </div>
     </div>
   );
