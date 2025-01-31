@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 
 const Card = ({ label, title, description, dueDate }) => {
@@ -15,7 +16,7 @@ const Card = ({ label, title, description, dueDate }) => {
           {description}
         </p>
         <p className="duedate text-gray-500 mt-4 text-sm font-medium">
-          Due Date: <span className="text-gray-700">{dueDate}</span>
+          Due Date: <span className="text-gray-700">{moment(parseInt(dueDate)).format('DD-MM-YYYY')}</span>
         </p>
       </div>
 

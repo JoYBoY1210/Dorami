@@ -7,13 +7,16 @@ import Card from './components/Card'
 import CardList from './components/CardList'
 import Dashboard from './components/DashboardMain'
 import TodoView from './components/TodoView'
+import { DateContextProvider } from './context/DateContext'
 
 
 
 function App() {
+
+  
   return (
-   
-      <div className="bg-gray-200 flex">
+   <DateContextProvider>
+    <div className="bg-gray-200 flex">
       <div className="navigation ">
         <Navigation />
       </div>
@@ -23,6 +26,9 @@ function App() {
      
       
     </div>
+
+   </DateContextProvider>
+      
       
     
     

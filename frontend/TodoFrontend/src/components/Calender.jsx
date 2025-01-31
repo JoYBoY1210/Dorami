@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './CalenderFinal.css';
+import { useDate } from '../context/DateContext';
+import moment from 'moment';
 
 function Calender() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startDay, setStartDay] = useState(0);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const {selectedDate, setSelectedDate} = useDate();
 
   useEffect(() => {
     const year = currentDate.getFullYear();
@@ -30,6 +32,7 @@ function Calender() {
   const nextMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
+  // console.log(daysInMonth)
 
   const isToday = (day) => {
     const today = new Date();
@@ -41,10 +44,12 @@ function Calender() {
   };
 
   const isSelected = (day) => {
-    return selectedDate && day.toDateString() === selectedDate.toDateString();
+    return selectedDate && day === selectedDate;
   };
-  const handleDateclick =(date) => {
-    setSelectedDate(date);
+  const handleDateclick = (date) => {
+    setSelectedDate(moment(date).startOf('day').format('x'));
+    // console.log(date)
+    // console.log( new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate())
   }
   return (
     <div className='calender'>
@@ -68,7 +73,7 @@ function Calender() {
           <div
             key={day}
             className={`day ${isToday(day) ? "today" : ""} ${isSelected(day) ? "selected" : ""}`}
-            onClick={() => setSelectedDate(day)}
+            onClick={() => {handleDateclick(day)}}
           >
             {day.getDate()}
           </div>

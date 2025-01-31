@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import CardList from './CardList'
+import { DateContext, useDate } from '../context/DateContext'
 
 const TodoView = () => {
-
-
+   const {selectedDate, setSelectedDate} = useDate();
+  // console.log(selectedDate)
   return (
     <div className="todoview">
       <div className="flex justify-between items-center pt-5 w-full mb-6">
