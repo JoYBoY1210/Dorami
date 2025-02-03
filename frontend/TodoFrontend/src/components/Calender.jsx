@@ -23,7 +23,7 @@ function Calender() {
     setStartDay(new Date(year, month, 1).getDay());
   }, [currentDate]);
 
-  const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
+  const dayNames = ["S", "M", "T", "W", "Th", "F", "Sa"];
   
   const prevMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));

@@ -26,12 +26,19 @@ class TodoListView(APIView):
 class TodoCreateView(APIView):
     permission_classes=[IsAuthenticated]
     def post(self,request):
+        print("Request received at /todos/create/")  # Debugging line
+        print("Headers:", request.headers)  # Log headers for debugging
+        print("Authenticated user:", request.user)  # Debugging line
         serializer=Todoserializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
+
+
+
+
 class TodoDetailView(APIView):
     permission_classes=[IsAuthenticated]
 

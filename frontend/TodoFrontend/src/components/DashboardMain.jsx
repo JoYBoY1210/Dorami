@@ -24,7 +24,7 @@ const DashboardMain = () => {
         </button>
       </div>
 
-      <div className="topcards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="topcards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
         <div className="card bg-white rounded-lg shadow-md text-center p-4">
           <p className="text-base sm:text-lg font-semibold text-gray-500">Total Tasks</p>
           <p className="text-2xl sm:text-3xl font-semibold">{tasks.length}</p>
@@ -35,10 +35,7 @@ const DashboardMain = () => {
             {tasks.filter((task) => task.completed).length}
           </p>
         </div>
-        <div className="card bg-white rounded-lg shadow-md text-center p-4">
-          <p className="text-base sm:text-lg font-semibold text-gray-500">Overdue Tasks</p>
-          <p className="text-2xl sm:text-3xl font-semibold">0</p>
-        </div>
+        
       </div>
 
       <div className="recent-tasks bg-white rounded-lg p-4 sm:p-6 mt-7 shadow-md">
