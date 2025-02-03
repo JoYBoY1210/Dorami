@@ -1,58 +1,58 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect, useState } from "react";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./App.css";
-import Navigation from "./components/Navigation";
-import { AuthContextProvider } from "./context/AuthContext";
-import Card from "./components/Card";
-import CardList from "./components/CardList";
-import Dashboard from "./components/DashboardMain";
-import TodoView from "./components/TodoView";
-import { DateContextProvider } from "./context/DateContext";
-import Signup from "./components/Signup";
-import SignIn from "./components/SignIn";
-import CreateTodo from "./components/CreateTodo";
-import { UserContextProvider } from "./context/UserContext";
-import DashboardMain from "./components/DashboardMain";
-import TodoPage from "./components/Pages/TodoPage";
 import DashboardPage from "./components/Pages/DashboardPage";
 import SignInPage from "./components/Pages/SignInPage";
 import SignUpPage from "./components/Pages/SignUpPage";
+import TodoPage from "./components/Pages/TodoPage";
 import CreateTodoPage from "./components/Pages/CreateTodoPage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { DateContextProvider } from "./context/DateContext";
+import { UserContextProvider } from "./context/UserContext";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  
+  useEffect(() => {
+    const token = Cookies.get("access_token");
+    setIsAuthenticated(!!token); 
+  }, []);
+
+  
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <DashboardPage />,
+      element: isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/sign-in" />,
     },
     {
       path: "/sign-in",
-      element: <SignInPage />,
+      element: isAuthenticated ? <Navigate to="/dashboard" /> : <SignInPage />,
     },
     {
       path: "/sign-up",
-      element: <SignUpPage />,
+      element: isAuthenticated ? <Navigate to="/dashboard" /> : <SignUpPage />,
+    },
+    {
+      path: "/dashboard",
+      element: isAuthenticated ? <DashboardPage /> : <Navigate to="/sign-in" />,
     },
     {
       path: "/todos",
-      element: <TodoPage />,
+      element: isAuthenticated ? <TodoPage /> : <Navigate to="/sign-in" />,
     },
     {
       path: "/create-todo",
-      element: <CreateTodoPage />,
+      element: isAuthenticated ? <CreateTodoPage /> : <Navigate to="/sign-in" />,
     },
   ]);
 
   return (
-    <AuthContextProvider>
-      <DateContextProvider>
-        <UserContextProvider>
-          <RouterProvider router={router} />
-        </UserContextProvider>
-      </DateContextProvider>
-    </AuthContextProvider>
+    <DateContextProvider>
+      <UserContextProvider>
+        <RouterProvider router={router} />
+      </UserContextProvider>
+    </DateContextProvider>
   );
 }
 

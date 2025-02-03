@@ -25,5 +25,5 @@ class TokenSerializer(serializers.ModelSerializer):
         fields = ['access', 'refresh']
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.CharField()
+    email = serializers.EmailField()
     password = serializers.CharField()

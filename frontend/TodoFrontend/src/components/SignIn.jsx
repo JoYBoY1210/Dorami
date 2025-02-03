@@ -1,25 +1,21 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useUser } from "../context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
-
+import Cookies from "js-cookie";
 
 const SignIn = () => {
   const form = useForm();
   const register = form.register;
   const handleSubmit = form.handleSubmit;
   const errors = form.formState.errors;
-  const { setUser } = useUser();
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    
     try {
       const response = await fetch("http://127.0.0.1:8000/auth/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          
         },
         body: JSON.stringify(data),
         credentials: "include",
@@ -27,9 +23,10 @@ const SignIn = () => {
 
       if (response.ok) {
         const result = await response.json();
-        setUser(result);  
+        Cookies.set("access_token", result.access_token, { expires: 30 });
         console.log("Login successful");
-        navigate("/dashboard");  
+
+        navigate("/dashboard");
       } else {
         console.log("Login failed");
       }
