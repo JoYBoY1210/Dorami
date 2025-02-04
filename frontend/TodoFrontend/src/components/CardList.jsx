@@ -1,6 +1,8 @@
 import React from "react";
 import Card from "./Card";
 import { useDate } from "../context/DateContext";
+import moment from "moment";
+
 
 const CardList = ({todos,onDeleteTodo}) => {
   const { selectedDate } = useDate(); 
@@ -8,22 +10,33 @@ const CardList = ({todos,onDeleteTodo}) => {
   
 
   const filterTodos = selectedDate
-    ? todos.filter((todo) => {
-        return todo.dueDate === selectedDate;
-      })
-    : todos;
+  ? todos.filter((todo) => {
+    console.log(todo,selectedDate)
+      return moment(todo.due_date , 'x').isSame(moment(selectedDate, 'x')); 
+    })
+  : todos;
+
+  console.log(todos)
+  console.log(filterTodos)
+
+  // console.log(moment(todos[0].dueDate , 'x').format('x'));
+  // console.log(selectedDate)
+  // console.log(todos[0].dueDate)
+
+
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-center items-center">
       {filterTodos.length > 0 ? (
         filterTodos.map((todo, index) => (
           <Card
-            key={index}
+            key={todo.id}
+            id={todo.id}
             label={todo.label}
             title={todo.title}
             description={todo.description}
-            dueDate={todo.dueDate}
-            onDeleteTodo={onDeleteTodo}
+            dueDate={todo.due_date}
+            onDeleteTodo={()=>onDeleteTodo(todo.id)}
           />
         ))
       ) : (

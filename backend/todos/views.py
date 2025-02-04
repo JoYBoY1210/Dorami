@@ -48,12 +48,14 @@ class TodoDetailView(APIView):
     permission_classes=[IsAuthenticated]
 
     def get(self,request,pk):
-        todos=Todo.objects.get(pk=pk,user=request.user)
+    #    return Response({'message':pk}) 
+        
+        todos=Todo.objects.get(id=pk,user=request.user)
         serializer=Todoserializer(todos)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
     def put(self,request,pk):
-        todos=Todo.objects.get(pk=pk,user=request.user)
+        todos=Todo.objects.get(id=pk,user=request.user)
         serializer=Todoserializer(todos,data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
@@ -62,7 +64,7 @@ class TodoDetailView(APIView):
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self,request,pk):
-        todos=Todo.objects.get(pk=pk,user=request.user)
+        todos=Todo.objects.get(id=pk,user=request.user)
         todos.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)    
                                 

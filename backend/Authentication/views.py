@@ -5,14 +5,25 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.middleware.csrf import get_token
 from .serializers import RegisterSerializer, LoginSerializer
+from django.contrib.auth.decorators import login_required
 
 # views.py
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse
 
-@ensure_csrf_cookie  # 👈 Forces Django to send the CSRF cookie
+@ensure_csrf_cookie  
 def get_csrf_token(request):
     return JsonResponse({"status": "CSRF cookie set"})
+
+@login_required
+def get_user(request):
+    user=request.user
+    return JsonResponse({
+        "id": user.id,
+        "username": user.username,
+        "email": user.email
+    })
+
 
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]

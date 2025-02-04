@@ -9,7 +9,7 @@ import { getCSRFTokenFromCookie } from "./getcsrf";
 const TodoView = () => {
   const { selectedDate, setSelectedDate } = useDate();
   const [isCreateTodoOpen, setIsCreateTodoOpen] = useState(false);
-  const [todos, setTodos] = useState([  
+  const [todos, setTodos] = useState([
     {
       label: "Work",
       title: "Learn React",
@@ -24,7 +24,39 @@ const TodoView = () => {
     },
   ]);
 
+
+  const getTodo=async ()=>{
+    try {
+      const csrftoken=getCSRFTokenFromCookie();
+      const response = await fetch("http://localhost:8000/todos/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          'X-CSRFToken': csrftoken,
+        },
+        credentials: "include",
+        withCredentials: true
+      });
+      
+      if (response.ok) {
+        
+        const data2 = await response.json()
+        setTodos(data2);
+        console.log(data2)
+        console.log("Successful got todos");
+      } else {
+        console.log("Failed to get todos");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  }
+
+  // getTodo();
+
   const openCreateTodoModal = () => {
+    getTodo();
+    console.log("Todo Added:", todos);
     setIsCreateTodoOpen(true);
   };
 
@@ -33,8 +65,9 @@ const TodoView = () => {
   };
 
   const handleTodoAdded = (newTodo) => {
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    setTodos([...todos, newTodo]);
     console.log("New Todo Added:", newTodo);
+    console.log("Todo Added:", todos);
   };
 
   const handleTodoDeleted = async (todoId) => {
@@ -45,12 +78,13 @@ const TodoView = () => {
         return;
       }
 
-      const response = await fetch(`http://127.0.0.1:8000/todos/${todoId}/`, {
+      const response = await fetch(`http://localhost:8000/todos/${todoId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json", 
           'X-CSRFToken': csrftoken,
         },
+        credentials:'include',
       });
 
       if (response.ok) {

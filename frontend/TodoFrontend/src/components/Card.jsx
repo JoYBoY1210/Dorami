@@ -1,12 +1,13 @@
 import moment from "moment";
 import React from "react";
 
-const Card = ({ label, title, description, dueDate,onDeleteTodo }) => {
+const Card = ({id, label, title, description, dueDate,onDeleteTodo }) => {
   return (
     <div className="outerbox bg-white rounded-lg shadow-md w-full flex flex-col justify-between">
       <div className="innerbox p-4">
         <p className="label bg-green-200 text-green-600 inline-block px-3 py-1 rounded text-sm font-medium">
-          {label}
+          
+          {label?label:"hi"}
         </p>
         <p className="title text-2xl font-semibold mt-4 text-gray-800">
           {title}

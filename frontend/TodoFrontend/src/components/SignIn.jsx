@@ -18,6 +18,7 @@ const SignIn = () => {
   })
 
   const onSubmit = async (data) => {
+    
     try {
       
       const response = await fetch("http://localhost:8000/auth/login/", {
@@ -30,7 +31,7 @@ const SignIn = () => {
         credentials: "include",
         withCredentials: true
       });
-      const data2 = await response.json()
+      // const data2 = await response.json()
       // console.log(data2)
 
       if (response.ok) {

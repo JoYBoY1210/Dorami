@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useContext,useState,createContext } from "react";
+import { getCSRFTokenFromCookie } from "../components/getcsrf";
+
 
 
 const UserContext = createContext();
@@ -9,10 +11,47 @@ const UserContextProvider=({children})=>{
     const [isAuthenticated, setIsAuthenticated] = useState(user? true: false);
 
     useEffect(() => {
-        //fetch req to get user object
-    },[isAuthenticated])
+        
+        const getuser=async()=>{
+            const csrftoken=getCSRFTokenFromCookie();
 
-    // console.log(isAuthenticated)
+            try{
+                const response=await fetch('http://localhost:8000/auth/getUser',{
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-CSRFToken': csrftoken,
+                      },
+                    credentials:'include'
+    
+                })
+                if (response.ok) {
+                    const userData = await response.json();
+                    setUser(userData);
+                    setIsAuthenticated(true);
+                } else {
+                    setUser(null);
+                    setIsAuthenticated(false);
+                }
+
+            }catch(error){
+                console.error("Error fetching user:", error);
+                setUser(null);
+                setIsAuthenticated(false);
+            }
+            
+        
+        
+
+            
+            
+
+        }
+        getuser();
+        
+    },[])
+
+    
     return(
         <UserContext.Provider value={{user,setUser, isAuthenticated, setIsAuthenticated}}>
             {children}
