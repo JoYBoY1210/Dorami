@@ -13,7 +13,7 @@ const Navigation = () => {
       </div>
       <div className="links flex-grow">
         <ul className="pt-6 sm:pt-9 pl-2 sm:pl-5">
-          <li className="text-lg sm:text-2xl font-medium pb-3 sm:pb-4">
+          <li className="text-lg sm:text-2xl font-medium pb-3 sm:pb-4 pr-3">
             {/* <a
               href="#"
               className="block py-2 px-4 sm:px-5 rounded-lg hover:bg-gray-100 hover:shadow-md"
@@ -24,7 +24,7 @@ const Navigation = () => {
               Dashboard
             </Link>
           </li>
-          <li className="text-lg sm:text-2xl font-medium pb-3 sm:pb-4">
+          <li className="text-lg sm:text-2xl pr-3 font-medium pb-3 sm:pb-4">
           <Link to="/todos" className="block py-2 px-4 sm:px-5 rounded-lg hover:bg-gray-100 hover:shadow-md ">
               Todos
             </Link>
