@@ -14,8 +14,8 @@ const SignIn = () => {
   const userContext = useContext(UserContext)
 
   useEffect(() => {
-  if(useContext.isAuthenticated) navigate("/")
-  })
+  if(userContext.isAuthenticated) navigate("/")
+  }, [userContext.isAuthenticated])
 
   const onSubmit = async (data) => {
     

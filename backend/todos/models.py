@@ -10,6 +10,7 @@ class Todo(models.Model):
     due_date=models.CharField(max_length=100000000000)
     created_at=models.DateTimeField(auto_now_add=True)
     label=models.CharField(max_length=20,null=True,blank=True)
+    completed=models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

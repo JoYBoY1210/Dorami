@@ -1,15 +1,15 @@
 import moment from "moment";
 import React from "react";
 
-const Card = ({id, label, title, description, dueDate,onDeleteTodo }) => {
+const Card = ({id, label, title, description,completed, dueDate,onDeleteTodo,onCompletedTodo }) => {
   return (
     <div className="outerbox bg-white rounded-lg shadow-md w-full flex flex-col justify-between">
       <div className="innerbox p-4">
-        <p className="label bg-green-200 text-green-600 inline-block px-3 py-1 rounded text-sm font-medium">
+        <p className="label bg-green-200 text-green-600 inline-block px-3 py-1 rounded text-sm font-medium ">
           
-          {label?label:"hi"}
+          {label?label:"None"}
         </p>
-        <p className="title text-2xl font-semibold mt-4 text-gray-800">
+        <p className={`title text-2xl font-semibold mt-4 text-gray-800 ${completed?"line-through text-slate-400":""}`}>
           {title}
         </p>
         <p className="description text-gray-600 mt-3 text-sm leading-relaxed">
@@ -25,7 +25,7 @@ const Card = ({id, label, title, description, dueDate,onDeleteTodo }) => {
           Delete
         </button>
         
-        <button className="bg-green-500 hover:bg-green-600 text-white font-medium py-1 px-4 rounded">
+        <button className="bg-green-500 hover:bg-green-600 text-white font-medium py-1 px-4 rounded" onClick={onCompletedTodo}>
           Done
         </button>
       </div>

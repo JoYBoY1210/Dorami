@@ -44,8 +44,9 @@ function Calender() {
   };
 
   const isSelected = (day) => {
-    return selectedDate && day === selectedDate;
+    return selectedDate && moment(day).startOf('day').format('x') === selectedDate;
   };
+  
   const handleDateclick = (date) => {
     setSelectedDate(moment(date).startOf('day').format('x'));
     // console.log(date)

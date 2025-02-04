@@ -1,5 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { createBrowserRouter, RouterProvider, Navigate, Routes, Route, HashRouter, BrowserRouter } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+  Routes,
+  Route,
+  HashRouter,
+  BrowserRouter,
+} from "react-router-dom";
 import Cookies from "js-cookie";
 import "./App.css";
 import DashboardPage from "./components/Pages/DashboardPage";
@@ -9,29 +17,26 @@ import TodoPage from "./components/Pages/TodoPage";
 import CreateTodoPage from "./components/Pages/CreateTodoPage";
 import { DateContextProvider } from "./context/DateContext";
 import { UserContext, UserContextProvider } from "./context/UserContext";
+import { TodoContextProvider } from "./context/TodoContext";
 
 function App() {
-
   // useEffect(() => {
-    
+
   //   fetch('http://localhost:8000/auth/csrf/', {
   //     method: 'GET',
-  //     credentials: 'include', 
+  //     credentials: 'include',
   //   })
   //     .then(() => console.log('CSRF cookie set'))
   //     .catch(error => console.error('Error fetching CSRF token:', error));
   // }, []);
-  
 
   // const isAuthenticated = false
 
-  
   // useEffect(() => {
   //   // const token = Cookies.get("access_token");
-  //   setIsAuthenticated(!!token); 
+  //   setIsAuthenticated(!!token);
   // }, []);
 
-  
   // const router = createBrowserRouter([
   //   {
   //     path: "/",
@@ -61,18 +66,20 @@ function App() {
 
   return (
     <DateContextProvider>
-      <UserContextProvider>
-        <HashRouter>
-        <Routes>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/sign-in" element={<SignInPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/todos" element={<TodoPage />} />
-          <Route path="/create-todo" element={<CreateTodoPage />} />
-        </Routes>
-        </HashRouter>
-      </UserContextProvider>
+      <TodoContextProvider>
+        <UserContextProvider>
+          <HashRouter>
+            <Routes>
+              <Route path="/" element={<DashboardPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/sign-in" element={<SignInPage />} />
+              <Route path="/sign-up" element={<SignUpPage />} />
+              <Route path="/todos" element={<TodoPage />} />
+              <Route path="/create-todo" element={<CreateTodoPage />} />
+            </Routes>
+          </HashRouter>
+        </UserContextProvider>
+      </TodoContextProvider>
     </DateContextProvider>
   );
 }

@@ -9,9 +9,7 @@ const UserContext = createContext();
 const UserContextProvider=({children})=>{
     const[user,setUser]=useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(user? true: false);
-
     useEffect(() => {
-        
         const getuser=async()=>{
             const csrftoken=getCSRFTokenFromCookie();
 
@@ -49,7 +47,9 @@ const UserContextProvider=({children})=>{
         }
         getuser();
         
-    },[])
+    },[isAuthenticated])
+
+    
 
     
     return(

@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Todo
-from .serializers import Todoserializer
+from .serializers import Todoserializer,TodoCompletedSerializer
 from rest_framework import status
 
 
@@ -26,7 +26,7 @@ class TodoListView(APIView):
     
 class TodoCreateView(APIView):
     
-    permission_classes=[AllowAny]
+    # permission_classes=[AllowAny]
 
     def post(self, request):
         print(request.data)
@@ -56,7 +56,7 @@ class TodoDetailView(APIView):
 
     def put(self,request,pk):
         todos=Todo.objects.get(id=pk,user=request.user)
-        serializer=Todoserializer(todos,data=request.data)
+        serializer=TodoCompletedSerializer(todos,data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data,status=status.HTTP_200_OK)

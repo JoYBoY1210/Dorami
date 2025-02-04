@@ -4,20 +4,20 @@ import { useDate } from "../context/DateContext";
 import moment from "moment";
 
 
-const CardList = ({todos,onDeleteTodo}) => {
+const CardList = ({todos,onDeleteTodo,onCompletedTodo}) => {
   const { selectedDate } = useDate(); 
 
   
 
   const filterTodos = selectedDate
   ? todos.filter((todo) => {
-    console.log(todo,selectedDate)
+    // console.log(todo,selectedDate)
       return moment(todo.due_date , 'x').isSame(moment(selectedDate, 'x')); 
     })
   : todos;
 
-  console.log(todos)
-  console.log(filterTodos)
+  // console.log(todos)
+  // console.log(filterTodos)
 
   // console.log(moment(todos[0].dueDate , 'x').format('x'));
   // console.log(selectedDate)
@@ -37,6 +37,8 @@ const CardList = ({todos,onDeleteTodo}) => {
             description={todo.description}
             dueDate={todo.due_date}
             onDeleteTodo={()=>onDeleteTodo(todo.id)}
+            onCompletedTodo={()=>onCompletedTodo(todo.id)}
+            completed={todo.completed}
           />
         ))
       ) : (

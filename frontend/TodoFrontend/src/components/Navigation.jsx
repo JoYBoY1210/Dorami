@@ -9,7 +9,7 @@ const Navigation = () => {
   return (
     <div className="navigation w-full sm:w-64 h-screen border-black border-l-2 bg-white flex flex-col">
       <div className="OopsLater text-center sm:text-left">
-        <p className="text-2xl sm:text-3xl font-semibold sm:pl-9 pt-6 font-mono">OopsLater</p>
+        <p className="text-2xl sm:text-3xl font-semibold sm:pl-9 pt-6 font-mono">Dorami</p>
       </div>
       <div className="links flex-grow">
         <ul className="pt-6 sm:pt-9 pl-2 sm:pl-5">

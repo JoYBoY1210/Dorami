@@ -4,58 +4,25 @@ import { useDate } from "../context/DateContext";
 import CreateTodo from "./CreateTodo";
 import Cookies from "js-cookie"; 
 import { getCSRFTokenFromCookie } from "./getcsrf";
+import { TodoContext,TodoContextProvider } from "../context/TodoContext";
+import { useTodo } from "../context/TodoContext";
+import { useContext } from "react";
+
 
 
 const TodoView = () => {
   const { selectedDate, setSelectedDate } = useDate();
   const [isCreateTodoOpen, setIsCreateTodoOpen] = useState(false);
-  const [todos, setTodos] = useState([
-    {
-      label: "Work",
-      title: "Learn React",
-      description: "Learn React from scratch",
-      dueDate: "1738348200000",
-    },
-    {
-      label: "Timepass",
-      title: "Learn JavaScript",
-      description: "Learn JavaScript from scratch",
-      dueDate: "1738348200000",
-    },
-  ]);
+  const {todos,setTodos,getTodos}=useTodo();
+  
 
 
-  const getTodo=async ()=>{
-    try {
-      const csrftoken=getCSRFTokenFromCookie();
-      const response = await fetch("http://localhost:8000/todos/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          'X-CSRFToken': csrftoken,
-        },
-        credentials: "include",
-        withCredentials: true
-      });
-      
-      if (response.ok) {
-        
-        const data2 = await response.json()
-        setTodos(data2);
-        console.log(data2)
-        console.log("Successful got todos");
-      } else {
-        console.log("Failed to get todos");
-      }
-    } catch (error) {
-      console.log("Error:", error);
-    }
-  }
+  
 
   // getTodo();
 
   const openCreateTodoModal = () => {
-    getTodo();
+    // getTodo();
     console.log("Todo Added:", todos);
     setIsCreateTodoOpen(true);
   };
@@ -97,6 +64,42 @@ const TodoView = () => {
       console.error('Error:', error);
     }
   };
+  const handleTodoCompleted = async (todoId) => {
+    try {
+      const csrftoken=getCSRFTokenFromCookie();
+      if (!csrftoken) {
+        console.error("Token not found");
+        return;
+      }
+
+      const response = await fetch(`http://localhost:8000/todos/${todoId}`, {
+        method: "PUT",
+        body:JSON.stringify({
+          "completed" : true
+        }),
+        headers: {
+          "Content-Type": "application/json", 
+          'X-CSRFToken': csrftoken,
+        },
+        credentials:'include',
+      });
+
+      if (response.ok) {
+        setTodos((prevTodos) => 
+          prevTodos.map(todo =>
+            todo.id === todoId ? { ...todo, completed: true } : todo
+          )
+        );
+        
+        console.log('Todo completed successfully');
+        
+      } else {
+        console.error('Failed to complete todo');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <div className="todoview">
@@ -118,7 +121,7 @@ const TodoView = () => {
       )}
 
       <div className="cards pt-6">
-        <CardList todos={todos} onDeleteTodo={handleTodoDeleted} />
+        <CardList todos={todos} onDeleteTodo={handleTodoDeleted} onCompletedTodo={handleTodoCompleted} />
       </div>
     </div>
   );
