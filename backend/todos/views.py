@@ -1,9 +1,10 @@
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Todo
 from .serializers import Todoserializer
 from rest_framework import status
+
 
 
 class TodoListView(APIView):
@@ -24,17 +25,21 @@ class TodoListView(APIView):
     
     
 class TodoCreateView(APIView):
-    permission_classes=[IsAuthenticated]
-    def post(self,request):
-        print("Request received at /todos/create/")  # Debugging line
-        print("Headers:", request.headers)  # Log headers for debugging
-        print("Authenticated user:", request.user)  # Debugging line
-        serializer=Todoserializer(data=request.data)
+    
+    permission_classes=[AllowAny]
+
+    def post(self, request):
+        print(request.data)
+        print("Cookies:", request.COOKIES) 
+        print("Authenticated User:", request.user)  
+
+        serializer = Todoserializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 

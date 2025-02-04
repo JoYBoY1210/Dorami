@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const DashboardMain = () => {
   const [tasks, setTasks] = useState([
@@ -7,6 +9,13 @@ const DashboardMain = () => {
     { id: 3, title: "Read Documentation", description: "Go through the official React docs.", completed: false },
   ]);
 
+  const userContext = useContext(UserContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    console.log(userContext.isAuthenticated)
+  if(!userContext.isAuthenticated) navigate('/sign-in')
+  })
   const toggleTaskCompletion = (id) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>

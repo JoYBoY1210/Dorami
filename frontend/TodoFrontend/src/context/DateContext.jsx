@@ -21,7 +21,7 @@ export const DateContext = createContext();
 
 export const DateContextProvider = ( { children }) => {
     const [selectedDate, setSelectedDate] = useState(moment().startOf('day').format('x'));
-    console.log(selectedDate)
+    // console.log(selectedDate)
     return(
     <DateContext.Provider value={{selectedDate, setSelectedDate}}>
         {children}

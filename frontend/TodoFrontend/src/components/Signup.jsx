@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const Signup = () => {
   const form = useForm();
@@ -9,10 +10,15 @@ const Signup = () => {
   const handleSubmit = form.handleSubmit;
   const errors = form.formState.errors;
   const navigate=useNavigate();
+  const userContext = useContext(UserContext)
+
+ useEffect(() => {
+   if(useContext.isAuthenticated) navigate("/dashboard")
+   })
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/auth/register/", {
+      const response = await fetch("http://localhost:8000/auth/register/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -23,7 +29,8 @@ const Signup = () => {
       });
 
       if (response.ok) {
-        navigate("/sign-in");
+        userContext.setIsAuthenticated(true)
+        navigate("/");
         console.log("User registered successfully");
       } else {
         console.log("Registration failed");

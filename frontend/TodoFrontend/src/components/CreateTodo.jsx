@@ -1,26 +1,36 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
+import { getCSRFTokenFromCookie } from "./getcsrf";
+import { data } from 'react-router-dom';
+
 
 const CreateTodo = ({ onClose, onTodoAdded }) => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch , reset, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
     const newTodo = { 
       title: data.title, 
       description: data.description, 
-      dueDate: moment(data.dueDate).startOf('day').format('x'),
+      due_date: moment(data.dueDate).startOf('day').format('x'),
       label: data.label 
     };
-
+    console.log(newTodo)
+    const csrftoken=getCSRFTokenFromCookie();
+      console.log(csrftoken)
     try {
-      const response = await fetch("http://127.0.0.1:8000/todos/create/", {
+      
+      
+      const response = await fetch("http://localhost:8000/todos/create/", {
         method: "POST",
+        
         headers: {
           "Content-Type": "application/json",
+          'X-CSRFToken': csrftoken,
         },
+        credentials: "include",
         body: JSON.stringify(newTodo),
-        credentials: "include", 
+        
       });
 
       if (response.ok) {

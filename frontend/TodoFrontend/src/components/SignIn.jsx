@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { UserContext } from "../context/UserContext";
+// import { getCSRFTokenFromCookie } from "./getcsrf";
 
 const SignIn = () => {
   const form = useForm();
@@ -9,24 +11,36 @@ const SignIn = () => {
   const handleSubmit = form.handleSubmit;
   const errors = form.formState.errors;
   const navigate = useNavigate();
+  const userContext = useContext(UserContext)
+
+  useEffect(() => {
+  if(useContext.isAuthenticated) navigate("/")
+  })
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/auth/login/", {
+      
+      const response = await fetch("http://localhost:8000/auth/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          
         },
         body: JSON.stringify(data),
         credentials: "include",
+        withCredentials: true
       });
+      const data2 = await response.json()
+      // console.log(data2)
 
       if (response.ok) {
-        const result = await response.json();
-        Cookies.set("access_token", result.access_token, { expires: 30 });
+        // const result = await response.json();
+        // Cookies.set("access_token", result.access_token, { expires: 30 });
         console.log("Login successful");
-
-        navigate("/dashboard");
+        // console.log("Backend Response:", result);
+        // console.log(result.data.access_token);
+        userContext.setIsAuthenticated(true)
+        navigate("/");
       } else {
         console.log("Login failed");
       }
