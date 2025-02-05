@@ -7,7 +7,7 @@ import { NavLink,Link } from "react-router-dom";
 const Navigation = () => {
   const { user } = useUser();  
   return (
-    <div className="navigation w-full sm:w-64 h-screen border-black border-l-2 bg-white flex flex-col">
+    <div className="navigation w-fullh-screen border-black border-l-2 bg-white flex flex-col">
       <div className="OopsLater text-center sm:text-left">
         <p className="text-2xl sm:text-3xl font-semibold sm:pl-9 pt-6 font-mono">Dorami</p>
       </div>

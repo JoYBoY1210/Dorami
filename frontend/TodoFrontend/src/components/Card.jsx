@@ -12,7 +12,7 @@ const Card = ({id, label, title, description,completed, dueDate,onDeleteTodo,onC
         <p className={`title text-2xl font-semibold mt-4 text-gray-800 ${completed?"line-through text-slate-400":""}`}>
           {title}
         </p>
-        <p className="description text-gray-600 mt-3 text-sm leading-relaxed">
+        <p className={`description text-gray-600 mt-3 text-sm leading-relaxed ${completed?"line-through text-slate-400":""}`}>
           {description}
         </p>
         <p className="duedate text-gray-500 mt-4 text-sm font-medium">

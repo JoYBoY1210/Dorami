@@ -10,6 +10,7 @@ import { useContext } from "react";
 
 
 
+
 const TodoView = () => {
   const { selectedDate, setSelectedDate } = useDate();
   const [isCreateTodoOpen, setIsCreateTodoOpen] = useState(false);
@@ -102,7 +103,7 @@ const TodoView = () => {
   };
 
   return (
-    <div className="todoview">
+    <div className="todoview w-fulL">
       <div className="flex justify-between items-center pt-5 w-full mb-6">
         <p className="text-2xl font-semibold">Tasks</p>
         <button
