@@ -10,5 +10,5 @@ COPY . .
 
 RUN npm run build
 
-CMD ["npx", "serve", "-s", "dist", "-p", "5173"]
+CMD ["npx", "serve", "-s", "dist", "-p", "8123"]
 
