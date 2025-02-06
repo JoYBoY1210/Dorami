@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-9s1^g-ckbm(1a%b^baq+y3v%p9hv(ps6y5z4l6dj13i-dq9*ve
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "dorami.my.to",
+]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", 
 ]    
@@ -83,6 +86,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",  # Frontend origin
     "http://localhost:8000",  # Backend origin
     "http://127.0.0.1:8000", # Localhost backup
+    "http://localhost:8123",
+    "http://127.0.0.1:8123",
 ]
 
 # CSRF_COOKIE_NAME = "csrftoken"
@@ -90,7 +95,10 @@ CSRF_TRUSTED_ORIGINS = [
 
 # CORS Settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Frontend origin
+    "http://localhost:5173",
+    "http://localhost:8123",
+    "http://127.0.0.1:8123",
+  # Frontend origin
 ]
 
 CORS_ALLOW_CREDENTIALS = True
