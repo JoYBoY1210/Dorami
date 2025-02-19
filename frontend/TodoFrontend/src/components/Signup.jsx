@@ -19,7 +19,7 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://localhost:8000/auth/register/", {
+      const response = await fetch("http://51.79.173.35:8000/auth/register/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

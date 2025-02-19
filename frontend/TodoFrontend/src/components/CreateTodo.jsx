@@ -21,7 +21,7 @@ const CreateTodo = ({ onClose, onTodoAdded }) => {
     try {
       
       
-      const response = await fetch("http://localhost:8000/todos/create/", {
+      const response = await fetch("http://51.79.173.35:8000/todos/create/", {
         method: "POST",
         
         headers: {
